@@ -1,0 +1,140 @@
+/* Main container styling */
+* {
+  margin: 0;
+  padding: 0;
+}
+.expenses-container {
+  display: flex;
+  justify-content: center;
+  max-width: 1200px; /* Keep the max width for the overall container */
+  margin: 0 auto;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* Combined container styling */
+.expense-box, .budget-box {
+  width: 100%;
+  max-width: 800px; /* Set a max width for the combined container */
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/* Form container styling */
+.expense-form-container, .budget-form-container {
+  margin-bottom: 20px;
+}
+
+.expense-form-container h2, .budget-form-container h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form styling */
+.expense-form, .budget-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 21px;
+}
+
+.expense-form input,
+.expense-form select,
+.expense-form button,
+.budget-form input,
+.budget-form button {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+.expense-form button, .budget-form button {
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.expense-form button:hover, .budget-form button:hover {
+  background-color: #218838;
+}
+
+/* Logout button styling */
+.logout-button, .delete-expense-button {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.logout-button:hover, .delete-expense-button:hover {
+  background-color: #c82333;
+}
+
+/* Expense list container styling */
+.expense-list-container, .budget-list-container {
+  max-width: 100%; /* Allow full width */
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  height: 200px; /* Set a fixed height */
+  overflow: auto; /* Allow scrolling if content overflows */
+}
+
+.expense-list-container h2, .budget-list-container h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Expense list styling */
+.expenses-list, .budgets-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.expenses-list li, .budgets-list li {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
+
+.expenses-list li:nth-child(odd), .budgets-list li:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+/* Media queries for responsiveness */
+@media (min-width: 768px) {
+  .expenses-container {
+    flex-direction: row; /* Arrange items horizontally on larger screens */
+  }
+
+  .expense-form-container, .budget-form-container {
+    max-width: 365px; /* Set a fixed width for the form container */
+    margin-right: 20px; /* Add some margin on the right for spacing */
+  }
+
+  .expense-list-container, .budget-list-container {
+    flex: 2; /* Allow the list container to take the remaining space */
+  }
+}

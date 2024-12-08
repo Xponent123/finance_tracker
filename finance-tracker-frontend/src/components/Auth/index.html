@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color:bisque;
+            color: black;
+            font-family: 'Montserrat', sans-serif;
+        }
+        nav{
+            display:flex;
+            justify-content:space-around;
+            align-items: center;
+            height:90px;
+            background-color:rgb(0, 0, 0);
+            color:white;
+            font-size: 20px;
+        }
+        nav ul{
+            display: flex;
+            justify-content: space-around;
+
+        }
+        nav ul li{
+            list-style: none;
+            margin: 0 23px;
+            cursor: pointer;
+        }
+        nav ul li a{
+            text-decoration: none;
+            color:white;
+        }
+        nav ul li a:hover{
+            color:burlywood;
+            font-size: 1.05rem;
+            
+        }
+        .left{
+            font-size:2rem;
+        }
+        .first{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+        .first > div{
+            width: 30%;
+       
+        }
+        .leftsection{
+            font-size: 3rem;
+            font-weight: 700;
+   
+        }
+        .leftsection .btn{
+            padding:10px;
+            background-color:black;
+            color:white;
+            border:2px solid white;
+            font-size:20px;
+            border-radius: 6px;
+            cursor:pointer;
+        }
+        .leftsection .btn a{
+           text-decoration: none;
+              color:white;
+        }
+        .leftsection .btn:hover{
+            background-color:rgb(225, 129, 2);
+
+        }
+        .rightsection{
+            width:10%;
+            margin-top: 50px;
+            margin-right: 200px;
+            margin-left: -100px;
+        }
+        .purple{
+            color:brown;
+        
+        }
+        #element{
+            color:brown;
+        }
+        .second{
+            margin:auto;
+            max-width:80vw;
+            margin-top:50px;
+            height: 80vh;
+            
+        }
+        .second h1{
+            font-size: 2.5rem;
+        }
+        .hr1{
+            margin-left:60px;
+            margin-right:60px;
+        }
+        .text-Gray{
+            color:rgb(215, 83, 7);
+            font-weight:300;
+        }
+        .second .box{
+            background:     rgb(56, 52, 52);
+            width:84vw;
+            height:4px;
+            margin:56px 0;
+            margin-top:100px;
+
+            display:flex;
+        }
+        .second .vertical{
+            background:rgb(56,52,52);
+            width:2px;
+            height:93px;
+            margin: 0 163px;
+            img{
+                margin-bottom:100px;
+                margin-top: -50px;
+                margin-left:-22px;
+            
+            }
+        }
+        .title1{
+            font-size:1rem;
+            font-weight:600;
+            position: relative;
+            left:-2px;
+            width:125px;
+            color:rgb(225, 129, 2);
+
+
+        }
+        .desc1{
+            width:150px;
+            font-size:11px;
+        }
+        footer{
+            background-color:rgb(0, 0, 0);
+            height:233px;
+        }
+        .footer{
+            display:flex;
+            padding :23px 122px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="left">Jal's Portfolio </div>
+            <div class="right">
+                <ul>
+                    <li><a href="/home/xponent/Documents/porfolio/index.html">Home</a></li>
+                    <li><a href="/">About</a></li>
+                    <li><a href="/">Services</a></li>
+                    <li><a href="/">Projects</a></li>
+                    <li><a href="/">Contact</a></li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="first">
+            <div class="leftsection">
+                Hi, My name is <span class="purple">Jal</span>
+                <div>and I am a passionate</div>
+                <span id="element"></span>
+                <div class="buttons">
+                   
+                    <button class="btn"><a href="https://github.com/Xponent123">Visit Github</a></div>
+                </div>
+            </div>
+            <div class="rightsection">
+                <img src="bg.png" width="850" height="500">
+            </div>
+        </section>
+
+<hr class="hr1" style="border: 3px solid rgb(225, 129, 2)">
+
+        <section class="second">
+            <span class="text-Gray">What I have done so far</span>
+            <h1> Timeline</h1>
+            <div class="box">
+
+                <div class="vertical">
+                    <img class="img1" src="python.jpeg" width="40" height="40">
+                    <div class="title1">
+                        Python Programmer 
+                        (July 2021-)
+                    </div>
+                    <div class="desc1">
+                        Started learning Python in school and made several projects like
+                        Hospital Management System, Weather report, Desktop assistant,etc.
+                    </div>
+
+                </div>
+
+                <div class="vertical">
+                    <img class="img1" src="cd.png" width="40" height="40">
+                    <div class="title1">
+                        Circuit Designer
+                        (August 2023-)
+                    </div>
+                    <div class="desc1">
+                        Designed and made several Digital and Analog Circuits in courses
+                        Digital Systems and Microcontrollers and Analog Electronic Circuits.
+                    </div>
+                </div>
+                
+                <div class="vertical">
+                    <img class="img1" src="c++.png" width="50" height="50">
+                    <div class="title1">
+                        C & C++ Programmer
+                        (August 2023-)
+                    </div>
+                    <div class="desc1">
+                        Learnt C and C++ in college through courses like C programming
+                        and DSA. Started Competitive coding on codeforces.
+                        SOlved Problems on CSES and Leetcode as well.
+                    </div>
+                </div>
+                <div class="vertical">
+                    <img class="img1" src="robot.webp" width="50" height="50">
+                    <div class="title1">
+                        ERC Member
+                        (Feb 2024-)
+                    </div>
+                    <div class="desc1">
+                        Joined Electronics and Robotics Club
+                        of IIIT Hyderabad as a Tech and Events member.
+                        Made several projects like Line-follower robot, Maze-solver robot
+                        ,robotic arm, spider bot,etc.
+                    </div>
+
+                </div>
+
+                <div class="vertical">
+                    <img class="img1" src="web.webp" width="50" height="50">
+                    <div class="title1">
+                        Web Developer
+                        (June 2024-)
+                    </div>
+                    <div class="desc1">
+                        Started learning HTML, CSS and Javascript
+                        through Youtube. 
+                    </div>
+                </div>
+               
+               
+                
+
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="flex">
+            <div class="footerfirst"></div>
+            <div class="footersec"></div>
+            <div class="footerthird"></div>
+            <div class="footerfourth"></div>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <!-- Setup and start animation! -->
+    <script>
+      var typed = new Typed('#element', {
+        strings: ['Web Developer','Circuit Designer','Robotics Engineer','AI Enthusiast'],
+        typeSpeed: 50,
+      });
+    </script>
+  </body>
+</body>
+
+</html>
