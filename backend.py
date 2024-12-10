@@ -16,7 +16,7 @@ app.config['SECRET_KEY'] = key
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'bomb$astic005',
+    'password': 'Bomb$astic005',
     'database': 'finance_tracker'
 }
 
@@ -96,8 +96,8 @@ def add_expense(current_user):
     cursor = conn.cursor()
     
     try:
-        cursor.execute("INSERT INTO expenses (user_id, category_id, amount, description, expense_date, payment_method) VALUES (%s, %s, %s, %s, %s, %s)", 
-                      (current_user, data['category_id'], data['amount'], data['description'], data['expense_date'], data['payment_method']))
+        cursor.execute("INSERT INTO expenses (user_id, amount, description, expense_date, payment_method) VALUES (%s, %s, %s, %s, %s)", 
+                      (current_user, data['amount'], data['description'], data['expense_date'], data['payment_method']))
         conn.commit()
         return jsonify({'message': 'Expense added successfully!', 'id': cursor.lastrowid}), 201
     except mysql.connector.Error as err:
@@ -116,7 +116,7 @@ def get_expenses(current_user):
     cursor = conn.cursor(dictionary=True)
     
     try:
-        cursor.execute("SELECT e.*, c.category_name FROM expenses e JOIN categories c ON e.category_id = c.category_id WHERE e.user_id = %s AND YEAR(e.expense_date) = %s AND MONTH(e.expense_date) = %s ORDER BY e.expense_date DESC", 
+        cursor.execute("SELECT * FROM expenses WHERE user_id = %s AND YEAR(expense_date) = %s AND MONTH(expense_date) = %s ORDER BY expense_date DESC", 
                       (current_user, year, month))
         expenses = cursor.fetchall()
         return jsonify(expenses)
@@ -145,23 +145,30 @@ def delete_expense(current_user, expense_id):
 @token_required
 def add_budget(current_user):
     data = request.get_json()
-    
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
     
     try:
-        cursor.execute("INSERT INTO budgets (user_id, amount, start_date, end_date) VALUES (%s, %s, %s, %s)", 
-                      (current_user, data['amount'], data['start_date'], data['end_date']))
+        # Check if a budget for this month already exists
+        cursor.execute("SELECT id FROM budgets WHERE user_id = %s AND month = %s", (current_user, data['month']))
+        existing_budget = cursor.fetchone()
+        
+        if existing_budget:
+            return jsonify({'error': 'A budget for this month already exists!'}), 400
+        
+        # Add new budget
+        cursor.execute("INSERT INTO budgets (user_id, amount, month) VALUES (%s, %s, %s)", 
+                       (current_user, data['amount'], data['month']))
         conn.commit()
         return jsonify({'message': 'Budget added successfully!', 'id': cursor.lastrowid}), 201
+    
     except mysql.connector.Error as err:
         conn.rollback()
-        print(f"Error: {err}")  # Log the error to the console
         return jsonify({'error': str(err)}), 400
+    
     finally:
         cursor.close()
         conn.close()
-    return jsonify({'message': 'An unexpected error occurred!'}), 500
 
 @app.route('/api/budgets', methods=['GET'])
 @token_required
@@ -170,27 +177,13 @@ def get_budgets(current_user):
     cursor = conn.cursor(dictionary=True)
     
     try:
-        cursor.execute("SELECT * FROM budgets WHERE user_id = %s ORDER BY start_date DESC", (current_user,))
+        cursor.execute("SELECT * FROM budgets WHERE user_id = %s ORDER BY month DESC", (current_user,))  # Order by month
         budgets = cursor.fetchall()
         return jsonify(budgets)
     finally:
         cursor.close()
         conn.close()
 
-# Category routes
-@app.route('/api/categories', methods=['GET'])
-@token_required
-def get_categories(current_user):
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor(dictionary=True)
-    
-    try:
-        cursor.execute("SELECT * FROM categories WHERE is_default = TRUE OR user_id = %s ORDER BY category_name", (current_user,))
-        categories = cursor.fetchall()
-        return jsonify(categories)
-    finally:
-        cursor.close()
-        conn.close()
 
 if __name__ == '__main__':
     app.run(debug=True)

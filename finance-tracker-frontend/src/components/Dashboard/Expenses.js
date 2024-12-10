@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/financeApi';
 import './Expenses.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
 function Expenses({ token, setToken }) {
+  const navigate = useNavigate(); // Initialize useNavigate
   const [expenses, setExpenses] = useState([]);
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [budget, setBudget] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+
   const [budgets, setBudgets] = useState([]);
   const [showDeleteExpenses, setShowDeleteExpenses] = useState(false);
+  const [budgetMonth, setBudgetMonth] = useState(''); // Add state for budget month
 
   useEffect(() => {
     const fetchExpensesAndBudgets = async () => {
@@ -34,7 +36,6 @@ function Expenses({ token, setToken }) {
       amount,
       description,
       expense_date: new Date().toISOString().split('T')[0],
-      category_id: 1,
       payment_method: paymentMethod,
     };
     try {
@@ -49,23 +50,29 @@ function Expenses({ token, setToken }) {
 
   const handleAddBudget = async (e) => {
     e.preventDefault();
+  
+    // Check for duplicate month
+    if (budgets.some((b) => b.month === budgetMonth)) {
+      alert(`A budget for ${budgetMonth} already exists.`);
+      return;
+    }
+  
     const newBudget = {
       amount: budget,
-      start_date: startDate,
-      end_date: endDate,
-      category_id:1,
+      month: budgetMonth, // Use budget month
     };
+  
     try {
       await api.post('/budgets', newBudget, { headers: { Authorization: `Bearer ${token}` } });
+  
       setBudget('');
-      setStartDate('');
-      setEndDate('');
-      setBudgets([...budgets, newBudget]);
+      setBudgetMonth('');
+      setBudgets([...budgets, newBudget]); // Append the newly added budget to the list
     } catch (error) {
-      console.error("Error adding budget:", error);
+      console.error("Error adding budget:", error.response ? error.response.data : error.message);
     }
   };
-
+  
   const handleDeleteExpense = async (expenseId) => {
     try {
       await api.delete(`/expenses/${expenseId}`, { headers: { Authorization: `Bearer ${token}` } });
@@ -78,6 +85,10 @@ function Expenses({ token, setToken }) {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setToken(null);
+  };
+
+  const handleGoToSummary = () => {
+    navigate('/summary'); // Redirect to summary page
   };
 
   return (
@@ -98,6 +109,7 @@ function Expenses({ token, setToken }) {
           </form>
           <button className="logout-button" onClick={handleLogout}>Logout</button>
           <button className="delete-expense-button" onClick={() => setShowDeleteExpenses(!showDeleteExpenses)}>Delete Expense</button>
+          <button className="summary-button" onClick={handleGoToSummary}>Go to Summary</button> {/* Add Go to Summary button */}
         </div>
 
         <div className="expense-list-container">
@@ -120,8 +132,7 @@ function Expenses({ token, setToken }) {
           <h2>Add Budget</h2>
           <form className="budget-form" onSubmit={handleAddBudget}>
             <input type="number" placeholder="Budget Amount" value={budget} onChange={(e) => setBudget(e.target.value)} />
-            <input type="date" placeholder="Start Date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-            <input type="date" placeholder="End Date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+            <input type="month" placeholder="Select Month" value={budgetMonth} onChange={(e) => setBudgetMonth(e.target.value)} /> {/* Add month input */}
             <button type="submit">Add Budget</button>
           </form>
         </div>
@@ -131,7 +142,7 @@ function Expenses({ token, setToken }) {
           <ul className="budgets-list">
             {budgets.map((budget, idx) => (
               <li key={idx}>
-                Amount: Rs{budget.amount} (Start Date: {budget.start_date}, End Date: {budget.end_date})
+                Amount: Rs{budget.amount} (Month: {budget.month}) {/* Display month */}
               </li>
             ))}
           </ul>
