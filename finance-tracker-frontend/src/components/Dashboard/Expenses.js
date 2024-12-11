@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import api from '../../api/financeApi';
 import './Expenses.css';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
 function Expenses({ token, setToken }) {
-  const navigate = useNavigate(); // Initialize useNavigate
   const [expenses, setExpenses] = useState([]);
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [budget, setBudget] = useState('');
-
   const [budgets, setBudgets] = useState([]);
   const [showDeleteExpenses, setShowDeleteExpenses] = useState(false);
-  const [budgetMonth, setBudgetMonth] = useState(''); // Add state for budget month
+  const [budgetMonth, setBudgetMonth] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // Add state for error message
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     const fetchExpensesAndBudgets = async () => {
@@ -36,6 +36,7 @@ function Expenses({ token, setToken }) {
       amount,
       description,
       expense_date: new Date().toISOString().split('T')[0],
+      category_id: 1,
       payment_method: paymentMethod,
     };
     try {
@@ -50,29 +51,25 @@ function Expenses({ token, setToken }) {
 
   const handleAddBudget = async (e) => {
     e.preventDefault();
-  
-    // Check for duplicate month
-    if (budgets.some((b) => b.month === budgetMonth)) {
-      alert(`A budget for ${budgetMonth} already exists.`);
-      return;
-    }
-  
+    const [year, month] = budgetMonth.split('-');
     const newBudget = {
       amount: budget,
-      month: budgetMonth, // Use budget month
+      start_date: `${year}-${month}-01`,
+      end_date: `${year}-${month}-${new Date(year, month, 0).getDate()}`,
+      category_id: 1,
     };
-  
     try {
       await api.post('/budgets', newBudget, { headers: { Authorization: `Bearer ${token}` } });
-  
       setBudget('');
       setBudgetMonth('');
-      setBudgets([...budgets, newBudget]); // Append the newly added budget to the list
+      setBudgets([...budgets, newBudget]);
+      setErrorMessage(''); // Clear error message on success
     } catch (error) {
-      console.error("Error adding budget:", error.response ? error.response.data : error.message);
+      console.error("Error adding budget:", error);
+      setErrorMessage(error.response.data.error); // Set error message
     }
   };
-  
+
   const handleDeleteExpense = async (expenseId) => {
     try {
       await api.delete(`/expenses/${expenseId}`, { headers: { Authorization: `Bearer ${token}` } });
@@ -85,10 +82,10 @@ function Expenses({ token, setToken }) {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setToken(null);
-  };
+  }; 
 
   const handleGoToSummary = () => {
-    navigate('/summary'); // Redirect to summary page
+    navigate('/summary'); // Navigate to the summary page
   };
 
   return (
@@ -109,7 +106,7 @@ function Expenses({ token, setToken }) {
           </form>
           <button className="logout-button" onClick={handleLogout}>Logout</button>
           <button className="delete-expense-button" onClick={() => setShowDeleteExpenses(!showDeleteExpenses)}>Delete Expense</button>
-          <button className="summary-button" onClick={handleGoToSummary}>Go to Summary</button> {/* Add Go to Summary button */}
+          <button className="summary-button" onClick={handleGoToSummary}>Summary</button> {/* Add Summary button */}
         </div>
 
         <div className="expense-list-container">
@@ -132,9 +129,10 @@ function Expenses({ token, setToken }) {
           <h2>Add Budget</h2>
           <form className="budget-form" onSubmit={handleAddBudget}>
             <input type="number" placeholder="Budget Amount" value={budget} onChange={(e) => setBudget(e.target.value)} />
-            <input type="month" placeholder="Select Month" value={budgetMonth} onChange={(e) => setBudgetMonth(e.target.value)} /> {/* Add month input */}
+            <input type="month" placeholder="Month" value={budgetMonth} onChange={(e) => setBudgetMonth(e.target.value)} />
             <button type="submit">Add Budget</button>
           </form>
+          {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
         </div>
 
         <div className="budget-list-container">
@@ -142,7 +140,7 @@ function Expenses({ token, setToken }) {
           <ul className="budgets-list">
             {budgets.map((budget, idx) => (
               <li key={idx}>
-                Amount: Rs{budget.amount} (Month: {budget.month}) {/* Display month */}
+                Amount: Rs{budget.amount} (Month: {new Date(budget.start_date).toLocaleString('default', { month: 'long', year: 'numeric' })})
               </li>
             ))}
           </ul>
