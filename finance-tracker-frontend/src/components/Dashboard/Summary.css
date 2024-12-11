@@ -1,124 +1,68 @@
-/* Container for the entire summary */
 .summary-container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #ffffff;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    font-family: 'Arial', sans-serif;
-    color: #333;
-  }
-  
-  /* Title styling */
-  .summary-container h2 {
-    font-size: 28px;
-    color: #2c3e50;
-    margin-bottom: 30px;
-    text-align: center;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-  }
-  
-  /* Section headers */
-  .summary-section h3 {
-    font-size: 22px;
-    color: #34495e;
-    margin-bottom: 15px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid #dcdcdc;
-    padding-bottom: 5px;
-  }
-  
-  /* List of expenses or budget items */
-  .summary-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .summary-list li {
-    background-color: #f9f9f9;
-    padding: 12px 18px;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    font-size: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .summary-list li:nth-child(odd) {
-    background-color: #f1f1f1;
-  }
-  
-  .summary-list li:hover {
-    background-color: #ecf0f1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Total expense text */
-  .summary-container .total-expense {
-    font-size: 20px;
-    font-weight: bold;
-    color: #e74c3c;
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f2d7d5;
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  /* Budget section */
-  .summary-container .budget-section {
-    background-color: #ecf0f1;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-  }
-  
-  .summary-container .budget-section p {
-    font-size: 18px;
-    color: #27ae60;
-    font-weight: 500;
-    text-align: center;
-  }
-  
-  /* Form styling for month and year selection */
-  .summary-container form {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    gap: 20px;
-  }
-  
-  .summary-container form select,
-  .summary-container form button {
-    padding: 10px 15px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #bdc3c7;
-  }
-  
-  .summary-container form button {
-    background-color: #3498db;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .summary-container form button:hover {
-    background-color: #2980b9;
-  }
-  
-  .summary-container form select:focus,
-  .summary-container form button:focus {
-    outline: none;
-    border-color: #3498db;
-  }
-  
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.summary-container h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.summary-container input[type="month"] {
+  display: block;
+  margin: 0 auto 20px auto;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+.summary-details {
+  margin-bottom: 20px;
+}
+
+.summary-details h3 {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.summary-details ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.summary-details li {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+.summary-details li:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+.summary-overview {
+  text-align: center;
+}
+
+.summary-overview h3 {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.summary-overview p {
+  font-size: 16px;
+  color: #2c3e50;
+}
