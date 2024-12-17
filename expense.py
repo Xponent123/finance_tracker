@@ -8,7 +8,7 @@ class FinanceDBManager:
         self.config = {
             'host': 'localhost',
             'user': 'root',
-            'password': 'Bomb$astic005',  # Replace with your MySQL password
+            'password': 'your_password',  # Replace with your MySQL password
             'database': 'finance_tracker'
         }
 
