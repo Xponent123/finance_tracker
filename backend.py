@@ -16,7 +16,7 @@ app.config['SECRET_KEY'] = key
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'Bomb$astic005',
+    'password': 'your_password',
     'database': 'finance_tracker'
 }
 
