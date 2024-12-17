@@ -16,7 +16,7 @@ app.config['SECRET_KEY'] = key
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'bomb$astic005',
+    'password': 'Bomb$astic005',
     'database': 'finance_tracker'
 }
 
@@ -227,6 +227,28 @@ def get_summary(current_user):
         """, (current_user, year, month))
         summary = cursor.fetchone()
         return jsonify(summary)
+    finally:
+        cursor.close()
+        conn.close()
+
+@app.route('/api/summary/all', methods=['GET'])
+@token_required
+def get_all_summaries(current_user):
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor(dictionary=True)
+    
+    try:
+        cursor.execute("""
+            SELECT 
+                DATE_FORMAT(expense_date, '%Y-%m') as month,
+                COALESCE(SUM(amount), 0) as total_expenses
+            FROM expenses
+            WHERE user_id = %s
+            GROUP BY DATE_FORMAT(expense_date, '%Y-%m')
+            ORDER BY DATE_FORMAT(expense_date, '%Y-%m') DESC
+        """, (current_user,))
+        summaries = cursor.fetchall()
+        return jsonify(summaries)
     finally:
         cursor.close()
         conn.close()

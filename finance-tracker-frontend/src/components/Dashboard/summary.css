@@ -1,0 +1,223 @@
+/* Sleek Black-Green Finance Tracker Styling */
+
+:root {
+  --primary-bg: #000000;
+  --secondary-bg: #0d0f14;
+  --accent-green: #28c76f;
+  --text-light: #e0e0e0;
+  --text-muted: #7d8c85;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --shadow-soft: 0 6px 12px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 0 20px rgba(40, 199, 111, 0.5);
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(120deg, var(--primary-bg), var(--secondary-bg));
+  color: var(--text-light);
+  min-height: 100vh;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Main Layout */
+.summary-container-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 60px; /* Spacing between columns */
+  padding: 80px 40px;
+}
+
+.summary-container,
+.monthly-expenses-container {
+  flex: 1; /* Equal column width */
+  padding: 50px;
+  border-radius: 18px;
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  animation: breathing 5s infinite ease-in-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.summary-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Add gap between sections */
+}
+
+@keyframes breathing {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+}
+
+.summary-container h2,
+.monthly-expenses-container h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: var(--accent-green);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+h2::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 3px;
+  margin: 12px auto 0;
+  background: var(--accent-green);
+  border-radius: 5px;
+}
+
+.summary-details ul,
+.monthly-expenses-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.summary-details li,
+.monthly-expenses-container li {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px 25px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-light);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.summary-details li:hover,
+.monthly-expenses-container li:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.summary-section {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.summary-section:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.summary-section h3 {
+  font-size: 1.8rem;
+  color: var(--accent-green);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.summary-section p {
+  font-size: 1.2rem;
+  color: var(--text-light);
+}
+
+/* Buttons */
+button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent-green);
+  color: #000000;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background: #22a55f;
+  transform: scale(1.05);
+}
+
+.back-button {
+    position: absolute; /* Pin to the top-right */
+    top: 20px;
+    right: 20px;
+    z-index: 10; /* Ensure it appears on top */
+    padding: 8px 16px; /* Adjust padding for smaller size */
+    width: auto; /* Prevent the button from stretching */
+    height: auto; /* Ensure no unintended height */
+    display: inline-block; /* Make it fit its content */
+    line-height: 1; /* Remove extra vertical spacing */
+    border: none;
+    border-radius: 8px;
+    background: var(--accent-green);
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background: #22a55f;
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover);
+  }
+  
+  
+/* Month and Year Selectors */
+.month-year-selectors {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.month-year-selectors select {
+  padding: 10px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: var(--secondary-bg);
+  color: var(--text-light);
+  font-size: 16px;
+  box-shadow: var(--shadow-soft);
+  appearance: none; /* Ensure consistent appearance across browsers */
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.month-year-selectors select:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.05);
+}
+
+.month-year-selectors select:focus {
+  outline: none;
+  box-shadow: var(--shadow-hover);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .summary-container-wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .summary-container,
+  .monthly-expenses-container {
+    padding: 35px;
+  }
+}

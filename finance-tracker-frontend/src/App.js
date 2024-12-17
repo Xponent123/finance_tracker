@@ -7,7 +7,7 @@ import Summary from './components/Dashboard/Summary'; // Import the Summary comp
 import './App.css';
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useState(null); // Initialize token to null
 
   return (
     <Router>
@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={!token ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0px' }}>
-              <div>
+              <div className="auth-container">
                 <Login setToken={setToken} />
                 <Register />
               </div>

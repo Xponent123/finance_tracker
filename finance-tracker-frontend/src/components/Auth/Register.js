@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import api from '../../api/financeApi';
-
+// import './Register.css';
 function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');

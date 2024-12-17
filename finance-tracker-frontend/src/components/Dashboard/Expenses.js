@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import api from '../../api/financeApi';
-import './Expenses.css';
+import './Expenses.css'; // Ensure the correct CSS file is imported
 
 function Expenses({ token, setToken }) {
   const [expenses, setExpenses] = useState([]);
@@ -90,6 +90,8 @@ function Expenses({ token, setToken }) {
 
   return (
     <div className="expenses-container">
+      <button className="logout-button" onClick={handleLogout}>Logout</button>
+      <button className="summary-button" onClick={handleGoToSummary}>Summary</button> {/* Move Summary button */}
       <div className="expense-box">
         <div className="expense-form-container">
           <h2>Add Expense</h2>
@@ -104,13 +106,13 @@ function Expenses({ token, setToken }) {
             </select>
             <button type="submit">Add Expense</button>
           </form>
-          <button className="logout-button" onClick={handleLogout}>Logout</button>
-          <button className="delete-expense-button" onClick={() => setShowDeleteExpenses(!showDeleteExpenses)}>Delete Expense</button>
-          <button className="summary-button" onClick={handleGoToSummary}>Summary</button> {/* Add Summary button */}
+          
         </div>
-
+        <div className="budget1">
+        <h2>Expenses</h2>
+      </div>
         <div className="expense-list-container">
-          <h2>Expenses</h2>
+          
           <ul className="expenses-list">
             {expenses.map((expense, idx) => (
               <li key={idx}>
@@ -122,6 +124,7 @@ function Expenses({ token, setToken }) {
             ))}
           </ul>
         </div>
+        <button className="delete-expense-button" onClick={() => setShowDeleteExpenses(!showDeleteExpenses)}>Delete Expense</button>
       </div>
 
       <div className="budget-box">
@@ -133,10 +136,14 @@ function Expenses({ token, setToken }) {
             <button type="submit">Add Budget</button>
           </form>
           {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
+         
         </div>
+      <div className="budget1">
+      <h2>Budgets</h2>
+      </div>
 
         <div className="budget-list-container">
-          <h2>Budgets</h2>
+          
           <ul className="budgets-list">
             {budgets.map((budget, idx) => (
               <li key={idx}>
